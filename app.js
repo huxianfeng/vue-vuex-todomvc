@@ -69,6 +69,11 @@
           commit('ADD_TODO', todo)
         })
       },
+      updateTodo ({ commit }, todo) {
+        axios.patch(`/todos/${todo.id}`,{completed: todo.completed}).then(_ => {
+          console.log(`update todo: ${todo.id} to the server`)
+        })
+      },
       removeTodo ({ commit }, todo) {
         axios.delete(`/todos/${todo.id}`).then(_ => {
           console.log('removed todo', todo.id, 'from the server')
@@ -119,6 +124,12 @@
 
       removeTodo (todo) {
         this.$store.dispatch('removeTodo', todo)
+      },
+
+      updateTodo (todo) {
+        setTimeout(() => {
+          this.$store.dispatch('updateTodo', todo)
+        },0)
       },
 
       uploadTodos (e) {
